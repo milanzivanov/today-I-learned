@@ -9,15 +9,15 @@ const CATEGORIES = [
   { name: "news", color: "#8b5cf6" }
 ];
 
-// selecting DOM elements
+// Selecting DOM elements
 const btn = document.querySelector(".btn-open");
 const form = document.querySelector(".fact-form");
 const factsList = document.querySelector(".facts-list");
 
-// create dom elements
+// Create DOM elements: Render facts in list
 factsList.innerHTML = "";
 
-// Load data from supabase
+// Load data from Supabase
 async function loadFacts() {
   const res = await fetch(
     "https://zlygoyqdnayoaikgqohn.supabase.co/rest/v1/facts",
@@ -62,7 +62,7 @@ function createFactsList(dataArray) {
   factsList.insertAdjacentHTML("afterbegin", html);
 }
 
-// toggle form visibility
+// Toggle form visibility
 btn.addEventListener("click", function () {
   if (form.classList.contains("hidden")) {
     form.classList.remove("hidden");
