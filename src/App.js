@@ -7,11 +7,28 @@ function App() {
   // 1. Define state variable
   const [showForm, setShowForm] = useState(false);
   const [facts, setFacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
+    setIsLoading(true);
     async function getFacts() {
-      const { data: facts, error } = await supabase.from("facts").select("*");
-      setFacts(facts);
+      const { data: facts, error } = await supabase
+        .from("facts")
+        .select("*")
+        .order("votesIntresting", {
+          ascending: false
+        })
+        .limit(100);
+
+      // console.log(error);
+      // console.log(facts);
+
+      if (!error) {
+        setFacts(facts);
+      } else {
+        alert("There was a problem getting data!!!");
+      }
+      setIsLoading(false);
     }
     getFacts();
   }, []);
@@ -28,10 +45,14 @@ function App() {
       ) : null}
       <main className="main">
         <CategoryFilter></CategoryFilter>
-        <FactList facts={facts}></FactList>
+        {isLoading ? <Loader></Loader> : <FactList facts={facts}></FactList>}
       </main>
     </>
   );
+}
+
+function Loader() {
+  return <p className="message">Loading...</p>;
 }
 
 function Header({ showForm, setShowForm }) {
