@@ -36,6 +36,8 @@ function App() {
           alert("There was a problem getting data!!!");
         }
         setIsLoading(false);
+
+        // console.log(facts);
       }
       getFacts();
     },
@@ -264,7 +266,7 @@ function Fact({ fact }) {
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <button>👍 {fact.votesInteresting}</button>
+        <button>👍 {fact.votesIntresting}</button>
         <button>🤯 {fact.votesMindblowing}</button>
         <button>⛔️ {fact.votesFalse}</button>
       </div>
